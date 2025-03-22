@@ -102,16 +102,17 @@
 </head>
 <body>
 
-    <h1>  IPL 2025 - Live Streaming </h1>
+    <h1>IPL 2025 - Live Streaming</h1>
 
     <div class="video-container">
+        <!-- Using Video.js for video embedding -->
         <video id="live-stream" class="video-js vjs-default-skin" controls autoplay muted preload="auto" data-setup="{}">
-            <source src="https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8" type="application/x-mpegURL">
+            <source src="https://vkvsd63.okcdn.ru/hls/7896338336389.m3u8/sig/YnBbc_lu37w/expires/1742703600315/srcIp/103.186.185.230/urls/185.226.55.79/clientType/13/srcAg/CHROME/mid/8877922593669/7896338336389_high/index.m3u8" type="application/x-mpegURL">
             Your browser does not support HTML5 video.
         </video>
     </div>
 
-    <p> Join our Telegram channel for instant updates & highlights:</p>
+    <p>Join our Telegram channel for instant updates & highlights:</p>
     <a href="https://t.me/+NFoX453eVVI4N2M1" class="button" target="_blank">Join Now</a>
 
     <footer>
@@ -123,9 +124,7 @@
     <script>
         var player = videojs('live-stream');
         player.ready(function() {
-            // Ensure the video plays immediately and stays muted.
-            player.play();
-            player.muted(true); // Make sure it stays muted on autoplay
+            player.play(); // Autoplay on load
         });
     </script>
 

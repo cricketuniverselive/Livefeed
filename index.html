@@ -6,7 +6,6 @@
     <title>IPL 2025 Live Streaming</title>
     <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.css" rel="stylesheet">
     
     <style>
         body {
@@ -18,7 +17,6 @@
             padding: 0;
             box-sizing: border-box;
             overflow-x: hidden;
-            animation: fadeInBody 2s ease-in-out;
         }
 
         h1 {
@@ -93,6 +91,7 @@
 
     <div class="video-container">
         <video id="live-stream" class="video-js vjs-default-skin" controls autoplay muted preload="auto" data-setup="{}">
+            <source src="https://v18tataplaysyndication.akamaized.net/bpk-tv/Sports18_1_HD_voot_MOB/output03/hdntl=exp=1742808941~acl=%2f*~data=hdntl~hmac=2dff00c649927b4aa83fd24a541a057fb0d0b2a24909b1be06550ff9373c5b21/Sports18_1_HD_voot_MOB-audio_108038_eng=108000-video=2297600.m3u8" type="application/x-mpegURL">
         </video>
     </div>
 
@@ -103,41 +102,11 @@
         <p>&copy; 2025 IPL Live. All rights reserved.</p>
     </footer>
 
-    <!-- Video.js and Quality Selector Plugin -->
+    <!-- Video.js JS -->
     <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector/dist/videojs-hls-quality-selector.min.js"></script>
-
     <script>
-        var videoUrl = "https://teamrohitofficalnew.netlify.app/?videoUrl=https://live.tsports.com/mobile_hls/tsports_live_2/playlist.m3u8";
-
-        // Extract the direct .m3u8 link from the query parameter
-        function getM3U8Url(url) {
-            let urlObj = new URL(url);
-            return urlObj.searchParams.get("videoUrl");
-        }
-
-        var directM3U8Link = getM3U8Url(videoUrl);
-
-        // Initialize Video.js Player
-        var player = videojs('live-stream', {
-            controls: true,
-            autoplay: true,
-            muted: true,
-            fluid: true,
-            html5: {
-                hls: {
-                    overrideNative: true
-                }
-            }
-        });
-
-        player.src({
-            type: "application/x-mpegURL",
-            src: directM3U8Link
-        });
-
+        var player = videojs('live-stream');
         player.ready(function() {
-            player.hlsQualitySelector(); // Enable quality selector
             player.play();
         });
     </script>

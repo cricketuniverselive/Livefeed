@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IND vs ENG Test Match Day 2 - Live Stream</title>
-  <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IND vs ENG Test Match Day 2 – Live Stream</title>
+  <!-- Plyr CSS -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
   <style>
     body {
       margin: 0;
@@ -30,30 +31,14 @@
       color: #e67e22;
     }
 
-    .video-container {
-      width: 95%;
-      max-width: 900px;
-      margin: 20px auto 30px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 5px solid #f39c12;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      background-color: #000;
-    }
-
-    .video-js {
-      width: 100%;
-      height: 500px;
-    }
-
-    .button-group {
+    .controls {
+      margin: 20px 0;
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin: 20px 0;
     }
 
-    .tab-button {
+    .btn {
       background-color: #f39c12;
       border: none;
       color: #1a1a1a;
@@ -64,11 +49,25 @@
       transition: all 0.3s ease;
     }
 
-    .tab-button:hover,
-    .tab-button.active {
+    .btn:hover,
+    .btn.active {
       background-color: #e67e22;
-      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.5);
       transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.5);
+    }
+
+    .player-wrapper {
+      max-width: 900px;
+      margin: 0 auto 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 5px solid #f39c12;
+      background: #000;
+    }
+
+    #player {
+      width: 100%;
+      height: 500px;
     }
 
     footer {
@@ -87,22 +86,20 @@
     }
 
     @media (max-width: 768px) {
-      .video-js {
+      #player {
         height: 350px;
       }
-
       header h1 {
         font-size: 1.6em;
       }
-
-      .tab-button {
+      .btn {
         padding: 10px 16px;
         font-size: 0.9em;
       }
     }
 
     @media (max-width: 480px) {
-      .video-js {
+      #player {
         height: 280px;
       }
     }
@@ -112,46 +109,60 @@
 
   <header>
     <h1>India 🇮🇳 Tour of England 🇬🇧</h1>
-    <h2>1st Test Match - Day 2 | 21 Jun 2025</h2>
+    <h2>1st Test Match – Day 2 | 21 Jun 2025</h2>
   </header>
 
-  <div class="button-group">
-    <button class="tab-button active" onclick="switchStream('day2-eng')">English Commentary</button>
-    <!-- Future button if Hindi available:
-    <button class="tab-button" onclick="switchStream('day2-hin')">Hindi Commentary</button>
+  <div class="controls">
+    <button class="btn active" onclick="switchStream('eng')">English Commentary</button>
+    <!-- Add button for Hindi if available:
+    <button class="btn" onclick="switchStream('hin')">Hindi Commentary</button>
     -->
   </div>
 
-  <div class="video-container">
-    <video id="live-video" class="video-js vjs-default-skin" controls autoplay muted preload="auto" data-setup="{}">
-      <source src="https://dai.google.com/ssai/event/hQXQ8apwTJeGKlGD7Oi7lQ/master.m3u8" type="application/x-mpegURL">
-      Your browser does not support HTML5 video.
-    </video>
+  <div class="player-wrapper">
+    <video id="player" controls crossorigin playsinline></video>
   </div>
 
   <footer>
-    <p>📺 Best viewed in Chrome. Wait 1–2 minutes if stream doesn't start.</p>
+    <p>📺 Works best in Chrome. Wait 1–2 mins if stream doesn’t start instantly.</p>
     <p>&copy; 2025 FlickXDrive. All rights reserved. <a href="#">Terms & Conditions</a></p>
   </footer>
 
-  <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
+  <!-- Plyr JS -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script>
-    const player = videojs('live-video');
+    const player = new Plyr('#player', {
+      loadSprite: false,
+      autoplay: true,
+      muted: true
+    });
+
     const streams = {
-      'day2-eng': 'https://dai.google.com/ssai/event/hQXQ8apwTJeGKlGD7Oi7lQ/master.m3u8',
-      // 'day2-hin': 'ADD_HINDI_LINK_HERE'
+      'eng': 'https://dai.google.com/ssai/event/hQXQ8apwTJeGKlGD7Oi7lQ/master.m3u8',
+      // 'hin': 'https://dai.google.com/ssai/event/your-hindi-link/master.m3u8'
     };
 
-    function switchStream(key) {
-      const buttons = document.querySelectorAll('.tab-button');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      const btn = Array.from(buttons).find(b => b.onclick.toString().includes(key));
-      if (btn) btn.classList.add('active');
+    function switchStream(lang) {
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      document.querySelector(`.btn[onclick*="${lang}"]`).classList.add('active');
 
-      player.src({ type: 'application/x-mpegURL', src: streams[key] });
+      player.source = {
+        type: 'video',
+        sources: [
+          {
+            src: streams[lang],
+            type: 'application/x-mpegURL'
+          }
+        ]
+      };
+
       player.play();
     }
+
+    // Auto-load English by default
+    switchStream('eng');
   </script>
 
 </body>
-    </html>
+</html>

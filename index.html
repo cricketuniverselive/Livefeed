@@ -1,115 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IND VS ENG TEST Live Streaming</title>
-    <!-- Video.js CSS -->
-    <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet"/>
-    
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #4A148C, #311B92);
-            color: #ffffff;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IND vs ENG Test Match Day 2 - Live Stream</title>
+  <link href="https://vjs.zencdn.net/7.21.0/video-js.css" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-        h1 {
-            font-size: 3.5em;
-            margin-top: 20px;
-            color: #FDD835; /* IPL Gold */
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
-            letter-spacing: 2px;
-        }
+    header {
+      padding: 30px 15px 10px;
+    }
 
-        .video-container {
-            max-width: 960px;
-            margin: auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
-            background: #1C1C1C;
-            padding: 20px;
-            border: 5px solid #FDD835;
-        }
+    header h1 {
+      font-size: 2.2em;
+      color: #f1c40f;
+      margin-bottom: 5px;
+    }
 
-        .video-js {
-            width: 100%;
-            height: 500px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-        }
+    header h2 {
+      font-size: 1.2em;
+      color: #e67e22;
+    }
 
-        .button {
-            display: inline-block;
-            background-color: #FDD835;
-            color: #311B92;
-            padding: 14px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 25px;
-            transition: all 0.3s ease-in-out;
-            text-transform: uppercase;
-        }
+    .video-container {
+      width: 95%;
+      max-width: 900px;
+      margin: 20px auto 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 5px solid #f39c12;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      background-color: #000;
+    }
 
-        .button:hover {
-            background-color: #FFEB3B;
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(255, 165, 0, 0.7);
-        }
+    .video-js {
+      width: 100%;
+      height: 500px;
+    }
 
-        footer {
-            margin-top: 40px;
-            font-size: 1em;
-            color: #ffffff;
-            padding-bottom: 20px;
-        }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
 
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8em; }
-            .video-js { height: 400px; }
-        }
+    .tab-button {
+      background-color: #f39c12;
+      border: none;
+      color: #1a1a1a;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 2.2em; }
-            .video-js { height: 320px; }
-        }
+    .tab-button:hover,
+    .tab-button.active {
+      background-color: #e67e22;
+      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.5);
+      transform: scale(1.05);
+    }
 
-    </style>
+    footer {
+      padding: 20px;
+      font-size: 0.95em;
+      color: #ccc;
+    }
+
+    footer a {
+      color: #f39c12;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #e67e22;
+    }
+
+    @media (max-width: 768px) {
+      .video-js {
+        height: 350px;
+      }
+
+      header h1 {
+        font-size: 1.6em;
+      }
+
+      .tab-button {
+        padding: 10px 16px;
+        font-size: 0.9em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .video-js {
+        height: 280px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <h1>IND VS ENG TEST MATCH DAY 1 - Live Streaming</h1>
+  <header>
+    <h1>India 🇮🇳 Tour of England 🇬🇧</h1>
+    <h2>1st Test Match - Day 2 | 21 Jun 2025</h2>
+  </header>
 
-    <div class="video-container">
-        <video id="live-stream" class="video-js vjs-default-skin" controls autoplay muted preload="auto" data-setup="{}">
-            <source src="https://dai.google.com/ssai/event/DD7fA-HgSUaLyZp9AjRYxQ/master.m3u8" type="application/x-mpegURL">
-        </video>
-    </div>
+  <div class="button-group">
+    <button class="tab-button active" onclick="switchStream('day2-eng')">English Commentary</button>
+    <!-- Future button if Hindi available:
+    <button class="tab-button" onclick="switchStream('day2-hin')">Hindi Commentary</button>
+    -->
+  </div>
 
-    <p>Join our Telegram channel for instant updates & highlights:</p>
-    <a href="https://t.me/+NFoX453eVVI4N2M1" class="button" target="_blank">Join Now</a>
+  <div class="video-container">
+    <video id="live-video" class="video-js vjs-default-skin" controls autoplay muted preload="auto" data-setup="{}">
+      <source src="https://dai.google.com/ssai/event/hQXQ8apwTJeGKlGD7Oi7lQ/master.m3u8" type="application/x-mpegURL">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
 
-    <footer>
-        <p>&copy; 2025 IPL Live. All rights reserved.</p>
-    </footer>
+  <footer>
+    <p>📺 Best viewed in Chrome. Wait 1–2 minutes if stream doesn't start.</p>
+    <p>&copy; 2025 FlickXDrive. All rights reserved. <a href="#">Terms & Conditions</a></p>
+  </footer>
 
-    <!-- Video.js JS -->
-    <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
-    <script>
-        var player = videojs('live-stream');
-        player.ready(function() {
-            player.play();
-        });
-    </script>
+  <script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
+  <script>
+    const player = videojs('live-video');
+    const streams = {
+      'day2-eng': 'https://dai.google.com/ssai/event/hQXQ8apwTJeGKlGD7Oi7lQ/master.m3u8',
+      // 'day2-hin': 'ADD_HINDI_LINK_HERE'
+    };
+
+    function switchStream(key) {
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      const btn = Array.from(buttons).find(b => b.onclick.toString().includes(key));
+      if (btn) btn.classList.add('active');
+
+      player.src({ type: 'application/x-mpegURL', src: streams[key] });
+      player.play();
+    }
+  </script>
 
 </body>
-</html>
+    </html>
